@@ -22,12 +22,8 @@ import java.util.Stack;
  * Encontrar la salida de un laberinto o generar un laberinto
  * 
  */
-public class DFS {
-    private Stack<Vertex> stack;
-
-    public DFS() {
-        this.stack = new Stack<>();
-    }
+public class DFSRecursion {
+   
     
     public void dfs(List<Vertex> vertexList){
         //Podemos tener muchos grafos independientes
@@ -39,22 +35,13 @@ public class DFS {
         }
     }
     
-    private void dfsHelper(Vertex rootVertex){
+    private void dfsHelper(Vertex vertex){
+        System.out.println("Vertice visitado: "+ vertex);
         
-        //LIFO
-        stack.add(rootVertex);
-        rootVertex.setVisited(true);
-        
-        while(!stack.isEmpty()){
-            Vertex actualVertex = stack.pop();
-            System.out.println("Vertice visitado: "+ actualVertex);
-            
-            //Considerar a todos los vecinos
-            for(Vertex v: actualVertex.getNeighbors()){
-                if(!v.isVisited()){
-                    v.setVisited(true);
-                    stack.add(v);
-                }
+        for(Vertex v: vertex.getNeighbors()){
+            if(!v.isVisited()){
+                v.setVisited(true);
+                dfsHelper(v);
             }
         }
     }
